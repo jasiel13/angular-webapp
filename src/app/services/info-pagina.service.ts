@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { InfoPagina } from '../interfaces/info-pagina.interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InfoPaginaService {
 
-  info:any={};
+  info:InfoPagina={};
   cargada=false;
 
   //inyectar el servicio que tengo en mi modulo que acabo de crear
@@ -15,7 +16,7 @@ export class InfoPaginaService {
 
     //leer el archivo json que hice
     this.http.get('assets/data/data-pagina.json')
-    .subscribe(resp => {
+    .subscribe( (resp:InfoPagina) => {
 
       this.cargada=true;
       this.info=resp;
