@@ -14,9 +14,13 @@ export class InfoPaginaService {
 
   //inyectar el servicio que tengo en mi modulo que acabo de crear
   constructor(private http:HttpClient) {
-    this.cargarInfo();   
+    this.cargarInfo();
+
+    //esta propiedad se creo para la clase cargarEquipo   
     this.cargarEquipo(); 
    }
+
+
    private cargarInfo(){
    //console.log('Servicio de infoPagina listo');
 
@@ -30,6 +34,8 @@ export class InfoPaginaService {
     });
    }
 
+   
+   //esta clase es para obtener el json generado en firebase se coloca el link que nos da firebase y se repite casi el mismo paso anterior de la otra clase cargarinfo
    private cargarEquipo(){
      this.http.get('https://angular-html-4cb98.firebaseio.com/equipo.json')
      .subscribe((resp:any[])=>{
