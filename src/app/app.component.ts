@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { InfoPaginaService } from './services/info-pagina.service';
+import { ProductosService } from './services/productos.service';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,8 @@ import { InfoPaginaService } from './services/info-pagina.service';
 })
 export class AppComponent {
   //inyectar el servicio dentro de un cosntructor, el servicio me lo traje de la pagina services/info-pagina.service
-  constructor(public InfoPaginaService:InfoPaginaService){
+  constructor(public InfoPaginaService:InfoPaginaService,
+              public productosService:ProductosService){
 
   }
 }
