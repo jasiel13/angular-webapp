@@ -11,7 +11,8 @@ export class ProductosService {
   cargando=true;
 
   //crear arreglo de productos
-  productos: ProductoInterface[]=[];
+  productos: ProductoInterface[]=[]; 
+  productosFiltrado:ProductoInterface[]=[];
 
   constructor(private http: HttpClient) {
     this.cargarProductos();
@@ -38,5 +39,11 @@ export class ProductosService {
     //esto es un observable de angular
     return this.http.get(`https://angular-html-4cb98.firebaseio.com/productos/${id}.json`);
 
+   }
+   buscarProducto(termino:string){
+     this.productosFiltrado=this.productos.filter(producto=>{
+       return true;
+     });
+     console.log(this.productosFiltrado);
    }
 }
