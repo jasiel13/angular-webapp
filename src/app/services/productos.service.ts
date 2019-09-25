@@ -32,4 +32,11 @@ export class ProductosService {
       //},3000);
     });
    }
+
+   getProducto(id:string){
+     
+    //esto es un observable de angular
+    return this.http.get(`https://angular-html-4cb98.firebaseio.com/productos/${id}.json`);
+
+   }
 }
