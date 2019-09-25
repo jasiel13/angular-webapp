@@ -23,7 +23,7 @@ id: string;
       this.productoService.getProducto(parametros['id'])
       //ejecutar servicio
       .subscribe((producto:ProductoDescripcion )=>{
-        console.log(producto);
+        //console.log(producto);
         this.producto=producto;
         this.id=parametros['id'];
 
