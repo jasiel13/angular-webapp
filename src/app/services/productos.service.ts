@@ -19,19 +19,25 @@ export class ProductosService {
    }
 
    private cargarProductos(){
-     //esta es la peticion
+
+     //crear una promesa
+     return new Promise((resolve,reject)=>{
+
+         //esta es la peticion
      this.http.get('https://angular-html-4cb98.firebaseio.com/productos_idx.json')
-    //esto es para que haga la peticion
-    .subscribe((resp:ProductoInterface[])=>{ 
-
-      console.log(resp);
-      this.productos=resp;
-      this.cargando=false;
-
-      //setTimeout(()=>{
-        //this.cargando=false;
-      //},3000);
-    });
+     //esto es para que haga la peticion
+     .subscribe((resp:ProductoInterface[])=>{ 
+ 
+       console.log(resp);
+       this.productos=resp;
+       this.cargando=false;
+       resolve();
+ 
+       //setTimeout(()=>{
+         //this.cargando=false;
+       //},3000);
+       });
+     });  
    }
 
    getProducto(id:string){
@@ -41,9 +47,37 @@ export class ProductosService {
 
    }
    buscarProducto(termino:string){
-     this.productosFiltrado=this.productos.filter(producto=>{
-       return true;
-     });
-     console.log(this.productosFiltrado);
+
+    if(this.productos.length==0){
+      //cargar productos
+      this.cargarProductos().then(()=>{
+        //ejecutar despues de tener los productos
+        //aplicar filtro
+        this.filtrarProductos(termino);
+
+      });
+    }
+    else{
+      //aplicar el filtro
+      this.filtrarProductos(termino);
+    }    
+   }
+
+   private filtrarProductos(termino:string){
+
+    //console.log(this.productos);
+    this.productosFiltrado=[];
+
+    //CAMBIAR A KEY INCENSITIVE
+    termino=termino.toLocaleLowerCase();
+
+    this.productos.forEach(prod=>{
+      const tituloLower = prod.titulo.toLocaleLowerCase();
+      if ( prod.categoria.indexOf(termino)>=0 || tituloLower.indexOf(termino)>=0){
+        this.productosFiltrado.push(prod);
+
+      }
+    });
+
    }
 }
